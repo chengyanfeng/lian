@@ -128,17 +128,17 @@
 
 </body>
 <script type="text/javascript">
-    var N=0
-    var sech=""
+    var N = 0
+    var sech = ""
     $(function () {
-        ajaxget(1,"")
+        ajaxget(1, "")
         setInterval(function () {
-            ajaxget(N,sech)
+            ajaxget(N, sech)
         }, 6000);
     });
     var finde = function search() {
         explorerSearch = $("#findData").val()
-        ajaxget(1,explorerSearch)
+        ajaxget(1, explorerSearch)
     }
 
 
@@ -147,14 +147,14 @@
     function ajaxget(number, serch) {
         var serchword = ""
         var num = 1
-        if (serch.length >0) {
+        if (serch.length > 0) {
             serchword = serch
-            sech=serch
+            sech = serch
         }
         if (number > 1) {
             num = number
         }
-        url = "/getdata?page=" + num+"&explorerSearch="+serchword
+        url = "/getdata?page=" + num + "&explorerSearch=" + serchword
 
         $.ajax({
             type: "get",
@@ -170,7 +170,7 @@
                     datalist.append(htmldata)
                 }
                 num = parseInt(result.culpage)
-                N=num
+                N = num
                 PagerHtml(result.totalcount, 10, num, serch, 5)
             },
             error: function (errorMsg) {
@@ -184,8 +184,8 @@
         var htmllist = " <div class=" + "\"" + "todo-tasklist-item item-border-green row ng-scope" + "\"" + ">" +
                 "<div class=" + "\"" + "col-sm-12" + "\"" + ">" +
                 "<span class=" + "\"" + "todo-tasklist-item-title" + "\"" + "><a class=" + "\"" + "ng-binding" + "\"" + ">373</a></span><br>" +
-                "<span class=" + "\"" + "todo-tasklist-date ng-binding" + "\"" + ">2018-07-20 15:17:37 </span>"+
-        "<span class=" + "\"" + "todo-tasklist-date ng-binding" + "\"" + ">" + data + "</span>" + "</div> </div>"
+                "<span class=" + "\"" + "todo-tasklist-date ng-binding" + "\"" + ">2018-07-20 15:17:37 </span>" +
+                "<span class=" + "\"" + "todo-tasklist-date ng-binding" + "\"" + ">" + data + "</span>" + "</div> </div>"
         return htmllist
     }
 
@@ -218,16 +218,16 @@
             if (curpage > 1) {
                 html = html +
                         "<li>" +
-                        "<a onclick=" + "ajaxget" + "(" + (curpage - 1) + "," +"\"" +mpurl +"\""+ ")" + " aria-label=" + "\"" + "Previous" + "\"" + ">" +
+                        "<a onclick=" + "ajaxget" + "(" + (curpage - 1) + "," + "\"" + mpurl + "\"" + ")" + " aria-label=" + "\"" + "Previous" + "\"" + ">" +
                         "<span aria-hidden=" + "\"" + "true" + "\"" + ">&laquo;</span>" +
                         "</a> </li>"
             }
             if (totalpage <= number) {
                 for (i = 1; i <= totalpage; i++) {
                     if (i == curpage) {
-                        html = html + "<li class=" + "\"" + "active" + "\"" + "><a onclick=" + "ajaxget" + "(" + i + "," +"\"" +mpurl +"\""+")" + " >" + i + "</a></li>"
+                        html = html + "<li class=" + "\"" + "active" + "\"" + "><a onclick=" + "ajaxget" + "(" + i + "," + "\"" + mpurl + "\"" + ")" + " >" + i + "</a></li>"
                     } else {
-                        html = html + "<li><a onclick=" + "ajaxget" + "(" + i + "," +"\"" +mpurl +"\""+ ")" + " >" + i + "</a></li>"
+                        html = html + "<li><a onclick=" + "ajaxget" + "(" + i + "," + "\"" + mpurl + "\"" + ")" + " >" + i + "</a></li>"
                     }
                 }
             } else {
@@ -239,59 +239,53 @@
                         if (start < 1) {
                             length = 1 - start
                             start = 1
-
                             if ((end + length) > totalpage) {
                                 length = length - ((end + length) - totalpage)
                             }
                         }
                         if ((end + length) > totalpage) {
                             length = length - ((end + length) - totalpage)
-                            if(length<0){
-                                start=start+length
+                            if (length < 0) {
+                                start = start + length
                             }
                         }
                         for (i = start; i <= end + length; i++) {
                             if (i == curpage) {
-                                html = html + "<li class=" + "\"" + "active" + "\"" + "><a onclick=" + "ajaxget" + "(" + i + "," +"\"" +mpurl +"\""+ ")" + " >" + i + "</a></li>"
+                                html = html + "<li class=" + "\"" + "active" + "\"" + "><a onclick=" + "ajaxget" + "(" + i + "," + "\"" + mpurl + "\"" + ")" + " >" + i + "</a></li>"
                             } else {
-                                html = html + "<li><a onclick=" + "ajaxget" + "(" + i + "," +"\"" +mpurl +"\""+ ")" + " >" + i + "</a></li>"
+                                html = html + "<li><a onclick=" + "ajaxget" + "(" + i + "," + "\"" + mpurl + "\"" + ")" + " >" + i + "</a></li>"
                             }
                         }
                     } else {
                         for (i = curpage - number + 1; i <= curpage; i++) {
                             if (i == curpage) {
-                                html = html + "<li class=" + "\"" + "active" + "\"" + "><a onclick=" + "ajaxget" + "(" + i + ","+"\"" +mpurl +"\""+ ")" + " >" + i + "</a></li>"
+                                html = html + "<li class=" + "\"" + "active" + "\"" + "><a onclick=" + "ajaxget" + "(" + i + "," + "\"" + mpurl + "\"" + ")" + " >" + i + "</a></li>"
                             } else {
-                                html = html + "<li><a onclick=" + "ajaxget" + "(" + i + "," +"\"" +mpurl +"\""+ ")" + " >" + i + "</a></li>"
+                                html = html + "<li><a onclick=" + "ajaxget" + "(" + i + "," + "\"" + mpurl + "\"" + ")" + " >" + i + "</a></li>"
                             }
                         }
                     }
                 } else {
                     for (i = curpage; i <= number; i++) {
                         if (i == curpage) {
-                            html = html + "<li class=" + "\"" + "active" + "\"" + "><a onclick=" + "ajaxget" + "(" + i + "," +"\"" +mpurl +"\""+ ")" + " >" + i + "</a></li>"
+                            html = html + "<li class=" + "\"" + "active" + "\"" + "><a onclick=" + "ajaxget" + "(" + i + "," + "\"" + mpurl + "\"" + ")" + " >" + i + "</a></li>"
                         } else {
-                            html = html + "<li><a onclick=" + "ajaxget" + "(" + i + "," +"\"" +mpurl +"\""+ ")" + " >" + i + "</a></li>"
+                            html = html + "<li><a onclick=" + "ajaxget" + "(" + i + "," + "\"" + mpurl + "\"" + ")" + " >" + i + "</a></li>"
                         }
                     }
                 }
             }
-
             if (curpage < totalpage) {
                 html = html +
                         "<li>" +
-                        "<a onclick=" + "ajaxget" + "(" + (curpage + 1) + "," +"\"" +mpurl +"\""+ ")" + " aria-label=" + "\"" + "Next" + "\"" + ">" +
+                        "<a onclick=" + "ajaxget" + "(" + (curpage + 1) + "," + "\"" + mpurl + "\"" + ")" + " aria-label=" + "\"" + "Next" + "\"" + ">" +
                         "<span aria-hidden=" + "\"" + "true" + "\"" + ">&raquo;</span>" +
                         "</a> </li>"
             }
-
             html = html + "</ul> </nav>"
-
         }
         $("#pagehtml").html("")
         $("#pagehtml").append(html)
-
-
     }
 
 </script>
