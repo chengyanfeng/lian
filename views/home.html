@@ -133,7 +133,7 @@
     $(function () {
         ajaxget(1, "")
         setInterval(function () {
-            ajaxget(N, sech)
+           /* ajaxget(N, sech)*/
         }, 6000);
     });
     var finde = function search() {
@@ -165,8 +165,9 @@
             success: function (result) {
                 var datalist = $("#datalist")
                 datalist.html("")
-                for (i = 0; i < result.data.length; i++) {
-                    var htmldata = htmlDatalist(result.data[i].data)
+                for (i = result.data.length-1; i >0 ; i--) {
+
+                    var htmldata = htmlDatalist(result.data[i].data,result.data[i].number)
                     datalist.append(htmldata)
                 }
                 num = parseInt(result.culpage)
@@ -180,28 +181,24 @@
         });
     }
 
-    function htmlDatalist(data) {
+    function htmlDatalist(data,number) {
+
         var htmllist = " <div class=" + "\"" + "todo-tasklist-item item-border-green row ng-scope" + "\"" + ">" +
                 "<div class=" + "\"" + "col-sm-12" + "\"" + ">" +
-                "<span class=" + "\"" + "todo-tasklist-item-title" + "\"" + "><a class=" + "\"" + "ng-binding" + "\"" + ">373</a></span><br>" +
+                "<span class=" + "\"" + "todo-tasklist-item-title" + "\"" + "><a class=" + "\"" + "ng-binding" + "\"" + ">"+ number +"</a></span><br>" +
                 "<span class=" + "\"" + "todo-tasklist-date ng-binding" + "\"" + ">2018-07-20 15:17:37 </span>" +
                 "<span class=" + "\"" + "todo-tasklist-date ng-binding" + "\"" + ">" + data + "</span>" + "</div> </div>"
         return htmllist
     }
 
     function PagerHtml(totalcount, page_size, curpage, mpurl, number) {
-        debugger
         if (number % 2 == 0) {
             $("#pagehtml").html("")
             $("#pagehtml").append("请输入奇数")
             return
         }
         var totalpage = 0
-        if (totalcount % page_size > 0) {
-            totalpage = (totalcount / page_size) + 1
-        } else {
-            totalpage = (totalcount / page_size)
-        }
+        totalpage=Math.ceil(totalcount/page_size)
         //如果返回为空，那就返回为空
         if (totalcount == 0) {
             $("#pagehtml").html("")

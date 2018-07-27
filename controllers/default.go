@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"lian/util"
+	"lian/models"
 )
 
 type MainController struct {
@@ -11,13 +12,13 @@ type MainController struct {
 var queryp = util.P{}
 
 func (c *MainController) Get() {
-
 	c.TplName = "form.html"
 
 }
-func (c *MainController)Getdata(){
-	//page_size
+//获取数据分页
+func (c *MainController) Getdata() {
 	page_size := 10
+	reurnDataList := &[]models.Node{}
 	explorerSearch := c.GetString("explorerSearch")
 	page := c.GetString("page")
 	curlpage := util.ToInt(page)
@@ -29,10 +30,14 @@ func (c *MainController)Getdata(){
 	} else {
 		delete(queryp, "data")
 	}
-	datalist := util.D("test").Find(queryp).Page((curlpage-1)*page_size, page_size-1).AllData()
-	totalcount := util.D("test").Find(queryp).Count()
+	totalcount := util.D("uploads").Find(queryp).Count()
+	datalist := util.D("uploads").Find(queryp).Page(totalcount-(curlpage)*page_size, page_size).AllData()
 
-	c.Data["json"] = map[string]interface{}{"totalcount":totalcount,"data":datalist,"culpage":page}
+	for k, v := range *datalist {
+		v.Number = (totalcount - (curlpage)*page_size + k + 1)
+		*reurnDataList = append(*reurnDataList, v)
+	}
+	c.Data["json"] = map[string]interface{}{"totalcount": totalcount, "data": reurnDataList, "culpage": page}
 	c.ServeJSON()
 	return
 

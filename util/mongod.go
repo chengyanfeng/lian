@@ -291,7 +291,7 @@ func (m *MongoModel) query(c *mgo.Collection) *mgo.Query {
 
 func D(name string, params ...P) (m *MongoModel) {
 	dbhost := "127.0.0.1"
-	db := "db"
+	db := "chengyanfeng"
 	m = &MongoModel{Cname: name}
 	if len(params) < 1 {
 		p := P{"host": dbhost, "timeout": 10}
